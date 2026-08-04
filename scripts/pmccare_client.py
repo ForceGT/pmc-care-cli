@@ -43,7 +43,6 @@ class NotRegisteredError(RuntimeError):
 class Config:
     base_url: str
     mobile: str
-    use_otp: bool
     debug: bool = False
 
     @classmethod
@@ -52,7 +51,6 @@ class Config:
         return cls(
             base_url=os.environ.get("PMCCARE_BASE_URL", BASE_URL_DEFAULT).rstrip("/"),
             mobile=os.environ.get("PMCCARE_MOBILE", ""),
-            use_otp=os.environ.get("PMCCARE_USE_OTP", "1") == "1",
             debug=debug,
         )
 

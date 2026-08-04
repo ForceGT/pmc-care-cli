@@ -31,7 +31,6 @@ def main() -> int:
     mobile = prompt_mobile()
     ENV_PATH.write_text(
         f'PMCCARE_MOBILE="{mobile}"\n'
-        f'PMCCARE_USE_OTP="1"\n'
         f'PMCCARE_BASE_URL="https://api.pmccare.in"\n'
     )
     print(f"Wrote {ENV_PATH}. You're ready to run scripts/report.py.")
