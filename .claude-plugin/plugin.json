@@ -1,5 +1,5 @@
 {
-  "name": "pmc-pothole-reporter",
+  "name": "pmc-care-cli",
   "version": "0.1.0",
   "description": "Report pothole photos to the PMC Care grievance system one by one, using your own citizen login.",
   "author": "self",
