@@ -6,13 +6,17 @@ follow it. If you already know what a POST request, JSON body, or auth
 header is, skim past the primer and jump to
 [The two PMC systems](#the-two-pmc-systems).
 
-**Contents:** [A quick primer](#a-quick-primer-on-what-youre-looking-at) ·
-[The two PMC systems](#the-two-pmc-systems) ·
-[Logging in](#logging-in) ·
-[Registering](#registering-a-new-account) ·
-[Filing a complaint](#filing-a-complaint) ·
-[Checking status](#checking-status) ·
-[Other things worth knowing](#other-things-worth-knowing)
+## Contents
+
+| Section | What's there |
+|---|---|
+| [A quick primer](#a-quick-primer-on-what-youre-looking-at) | POST/GET, JSON, curl, headers, and tokens explained |
+| [The two PMC systems](#the-two-pmc-systems) | `api.pmccare.in` vs. `complaint.pmc.gov.in` |
+| [Logging in](#logging-in) | The three-step mobile + OTP login flow |
+| [Registering](#registering-a-new-account) | Why we don't auto-register, and the API we found |
+| [Filing a complaint](#filing-a-complaint) | Category/ward lookups and the submit call |
+| [Checking status](#checking-status) | Your own complaints vs. any complaint by token |
+| [Other things worth knowing](#other-things-worth-knowing) | Token lifetime, public photo URLs, and more |
 
 ---
 

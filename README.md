@@ -5,11 +5,15 @@ Care** (`api.pmccare.in`), the Pune Municipal Corporation's citizen-services
 app — scripted, so you can walk through a day's worth of pothole photos and
 report them one by one instead of doing it by hand in the app.
 
-**Contents:** [What this does](#what-this-project-does) ·
-[Getting started](#getting-started) ·
-[Flow diagrams](docs/FLOW.md) ·
-[Technical reference](docs/TECHNICAL.md) ·
-[Known limitations](#known-limitations)
+## Contents
+
+| Section | What's there |
+|---|---|
+| [What this project does](#what-this-project-does) | What the CLI is, and isn't |
+| [Getting started](#getting-started) | Install, configure, log in, file a complaint, check status |
+| [Flow diagrams](docs/FLOW.md) | Diagrams of the login, registration, filing, and status-check flows |
+| [Technical reference](docs/TECHNICAL.md) | Endpoint-by-endpoint breakdown with curl examples |
+| [Known limitations](#known-limitations) | What this version doesn't handle yet |
 
 ---
 
