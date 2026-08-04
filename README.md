@@ -32,20 +32,24 @@ pip install requests pillow cryptography
 
 ### 2. Configure your mobile number
 
-```bash
-cp .env.example .env
-```
-
-Edit `.env`:
+Run the setup script — it asks for your number and writes `.env` for you:
 
 ```
-PMCCARE_MOBILE="9028833886"
-PMCCARE_USE_OTP="1"
-PMCCARE_BASE_URL="https://api.pmccare.in"
+$ python scripts/init.py
+Mobile number registered with PMC Care (10 digits): 9028833886
+Wrote /path/to/pmc-care-cli/.env. You're ready to run scripts/report.py.
 ```
 
 That's the only thing you need to set — there's no password to configure,
-OTP is the only login method.
+OTP is the only login method. Run it again any time to change the number;
+it'll ask before overwriting an existing `.env`.
+
+If you skip this step, `scripts/report.py` will tell you to run it:
+
+```
+$ python scripts/report.py --status
+No .env found. Run 'python scripts/init.py' first to set your mobile number.
+```
 
 ### 3. First login
 

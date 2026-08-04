@@ -116,10 +116,16 @@ def main() -> int:
                           ensure_ascii=False, indent=2))
         return 0
 
-    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        print(f"No .env found. Run 'python scripts/init.py' first to set your "
+              f"mobile number.", file=sys.stderr)
+        return 2
+    load_dotenv(env_path)
     cfg = Config.from_env(debug=args.debug)
     if not cfg.mobile:
-        print("Fill PMCCARE_MOBILE in .env first (copy from .env.example).", file=sys.stderr)
+        print("PMCCARE_MOBILE is missing from .env. Run 'python scripts/init.py' "
+              "to fix it.", file=sys.stderr)
         return 2
 
     client = PMCCareClient(cfg)
