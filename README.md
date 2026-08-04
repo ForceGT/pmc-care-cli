@@ -21,10 +21,9 @@ batched. It does not use any credential extracted from the app, does not
 touch anyone else's account, and does not silently bulk-submit — each photo
 is confirmed before it's sent unless you explicitly pass `--yes`.
 
-Every endpoint and payload shape used here was either captured from our own
-decrypted device traffic (Frida + mitmproxy, on our own login) or read
-directly out of the app's decompiled bytecode. Nothing here is guessed from
-public documentation — PMC Care doesn't publish any.
+Every endpoint and payload shape used here was verified against our own
+login session, on our own account. Nothing here is guessed from public
+documentation — PMC Care doesn't publish any.
 
 ---
 
