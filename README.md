@@ -1,11 +1,19 @@
 # PMC Care CLI
 
-## What this project does
-
 A small Python CLI to file civic complaints (potholes, by default) to **PMC
 Care** (`api.pmccare.in`), the Pune Municipal Corporation's citizen-services
 app — scripted, so you can walk through a day's worth of pothole photos and
 report them one by one instead of doing it by hand in the app.
+
+**Contents:** [What this does](#what-this-project-does) ·
+[Getting started](#getting-started) ·
+[Flow diagrams](docs/FLOW.md) ·
+[Technical reference](docs/TECHNICAL.md) ·
+[Known limitations](#known-limitations)
+
+---
+
+## What this project does
 
 It logs in as **you** (OTP, your own mobile number) and files complaints
 under **your own account** — same as if you'd used the app yourself, just
@@ -22,7 +30,8 @@ public documentation — PMC Care doesn't publish any.
 
 ## Getting started
 
-### 1. Install
+<details open>
+<summary><strong>1. Install</strong></summary>
 
 ```bash
 git clone https://github.com/ForceGT/pmc-care-cli
@@ -30,7 +39,10 @@ cd pmc-care-cli
 pip install -r requirements.txt
 ```
 
-### 2. Configure your mobile number
+</details>
+
+<details open>
+<summary><strong>2. Configure your mobile number</strong></summary>
 
 Run the setup script — it asks for your number and writes `.env` for you:
 
@@ -51,7 +63,10 @@ $ python scripts/report.py --status
 No .env found. Run 'python scripts/init.py' first to set your mobile number.
 ```
 
-### 3. First login
+</details>
+
+<details>
+<summary><strong>3. First login</strong></summary>
 
 Any command that talks to PMC Care logs you in automatically the first time:
 
@@ -73,7 +88,10 @@ A real OTP is texted to your phone — type it in and press Enter. The
 resulting login token is cached in `.token_cache.json` for ~180 days, so you
 won't be asked for OTP again until it expires.
 
-### 4. If you're not registered yet
+</details>
+
+<details>
+<summary><strong>4. If you're not registered yet</strong></summary>
 
 If PMC Care doesn't recognize your number, the script stops and tells you
 where to register instead of guessing at an account-creation API on your
@@ -94,7 +112,10 @@ Open that link in a browser, complete registration there (a real PMC form —
 mobile + OTP, then your name/email/etc.), then come back and press Enter.
 The script logs in again automatically.
 
-### 5. Check the status of an existing complaint (no login needed)
+</details>
+
+<details>
+<summary><strong>5. Check the status of an existing complaint (no login needed)</strong></summary>
 
 If you already have a token number — from the app, from a WhatsApp/call-center
 complaint, or from a previous run of this script — you can check its status
@@ -119,7 +140,10 @@ $ python scripts/report.py --check-token WA256398
 This hits a completely different, older PMC system (`complaint.pmc.gov.in`)
 — see [FLOW.md](docs/FLOW.md) for why.
 
-### 6. File a single complaint
+</details>
+
+<details>
+<summary><strong>6. File a single complaint</strong></summary>
 
 Put one photo in a folder, then run:
 
@@ -182,7 +206,10 @@ bucket/CDN works), and just tells PMC that URL. See
 If a photo has no GPS in its EXIF data, the script asks you to type
 `lat,lon` manually, or press Enter to skip that photo.
 
-### 7. File complaints in bulk
+</details>
+
+<details>
+<summary><strong>7. File complaints in bulk</strong></summary>
 
 Put a whole day's photos in one folder and run the same command — the
 script walks you through every photo one at a time, reusing the same
@@ -231,7 +258,8 @@ Done. Filed 4 complaint(s):
   IMG_20260805_104501.jpg -> PC45015
 ```
 
-See "Known limitations" below if your day's photos span more than one ward.
+See [Known limitations](#known-limitations) if your day's photos span more
+than one ward.
 
 Add `--yes` to skip the "submit this complaint?" prompt for every photo —
 useful once you've reviewed the batch and trust it:
@@ -241,7 +269,10 @@ python scripts/report.py --dir ~/potholes/2026-08-05 \
     --photo-base-url https://your-bucket.example.com/potholes --yes
 ```
 
-### 8. Check everything you've filed
+</details>
+
+<details>
+<summary><strong>8. Check everything you've filed</strong></summary>
 
 ```
 $ python scripts/report.py --status
@@ -253,7 +284,10 @@ Logged in.
 ]
 ```
 
-### Debugging
+</details>
+
+<details>
+<summary><strong>Debugging</strong></summary>
 
 Add `--debug` to any command to print every request and response (secrets
 like your token/OTP are redacted):
@@ -261,6 +295,8 @@ like your token/OTP are redacted):
 ```bash
 python scripts/report.py --status --debug
 ```
+
+</details>
 
 ---
 
