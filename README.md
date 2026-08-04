@@ -2,11 +2,10 @@
 
 ## What this project does
 
-A small Claude Code plugin + Python client to file civic complaints (potholes,
-by default) to **PMC Care** (`api.pmccare.in`), the Pune Municipal
-Corporation's citizen-services app — scripted, so you can walk through a
-day's worth of pothole photos and report them one by one instead of doing it
-by hand in the app.
+A small Python CLI to file civic complaints (potholes, by default) to **PMC
+Care** (`api.pmccare.in`), the Pune Municipal Corporation's citizen-services
+app — scripted, so you can walk through a day's worth of pothole photos and
+report them one by one instead of doing it by hand in the app.
 
 It logs in as **you** (OTP, your own mobile number) and files complaints
 under **your own account** — same as if you'd used the app yourself, just
@@ -114,7 +113,7 @@ $ python scripts/report.py --check-token WA256398
 ```
 
 This hits a completely different, older PMC system (`complaint.pmc.gov.in`)
-— see [FLOW.md](FLOW.md) for why.
+— see [FLOW.md](docs/FLOW.md) for why.
 
 ### 6. File a single complaint
 
@@ -174,7 +173,7 @@ Done. Filed 1 complaint(s):
 Note the `--photo-base-url` requirement: the script doesn't upload your photo
 anywhere — it assumes you've already put it somewhere public (any
 bucket/CDN works), and just tells PMC that URL. See
-[TECHNICAL.md](TECHNICAL.md) for why that's enough.
+[TECHNICAL.md](docs/TECHNICAL.md) for why that's enough.
 
 If a photo has no GPS in its EXIF data, the script asks you to type
 `lat,lon` manually, or press Enter to skip that photo.
@@ -259,15 +258,13 @@ like your token/OTP are redacted):
 python scripts/report.py --status --debug
 ```
 
-Or from Claude Code: `/report-potholes ~/potholes/2026-08-05`
-
 ---
 
 For the full request/response flow diagrams (login, registration, filing,
-status-check), see [FLOW.md](FLOW.md).
+status-check), see [FLOW.md](docs/FLOW.md).
 
 For an endpoint-by-endpoint breakdown with curl examples, see
-[TECHNICAL.md](TECHNICAL.md).
+[TECHNICAL.md](docs/TECHNICAL.md).
 
 ---
 
