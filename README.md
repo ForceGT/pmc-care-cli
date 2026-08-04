@@ -25,6 +25,10 @@ batched. It does not use any credential extracted from the app, does not
 touch anyone else's account, and does not silently bulk-submit — each photo
 is confirmed before it's sent unless you explicitly pass `--yes`.
 
+**You only need to enter an OTP once every ~180 days.** After your first
+login, the session is cached locally and reused automatically — you won't
+be asked for an OTP again on later runs until that cache expires.
+
 Every endpoint and payload shape used here was verified against our own
 login session, on our own account. Nothing here is guessed from public
 documentation — PMC Care doesn't publish any.
