@@ -64,7 +64,7 @@ real and live (not a guess) — its own network traffic hits the identical
 Registration) mobile-number-and-OTP screen, matching what we found in the
 app's own registration flow.
 
-### Filing and tracking a complaint
+### Filing a complaint
 
 ```mermaid
 flowchart TD
@@ -75,7 +75,19 @@ flowchart TD
     E --> F["Host your photo yourself<br/>(S3 / Supabase / any public URL)"]
     F --> G["POST addGrievanceDirectly<br/>{category, ward, prabhag, description,<br/>lat/long, attachment: [url]}"]
     G --> H["✅ token returned e.g. PC45011"]
-    H --> I["Later: POST getGrievanceListByMobile<br/>{citMobileNumber} → status + full history"]
+```
+
+### Checking status by token number (no login)
+
+This is a separate, older PMC system (`complaint.pmc.gov.in`) — not
+`api.pmccare.in`. It's a public token-number lookup: no login, no mobile
+number, no OTP. Anyone with a token number can check its status.
+
+```mermaid
+flowchart TD
+    A["Have a token number, e.g. WA256398"] --> B["POST rptTokenDetailsByTokenCitizen<br/>{tokenNo}<br/>→ scrape comId out of the HTML"]
+    B --> C["POST fetchComplaintTrack<br/>{comId}"]
+    C --> D["✅ status + full history"]
 ```
 
 ---
@@ -100,6 +112,9 @@ python scripts/report.py --dir ~/potholes/2026-08-04 \
 
 # just check status of everything you've filed
 python scripts/report.py --status
+
+# check a specific complaint's status by token number — no login required
+python scripts/report.py --check-token WA256398
 
 # see every request/response while debugging (secrets are redacted)
 python scripts/report.py --dir ... --debug

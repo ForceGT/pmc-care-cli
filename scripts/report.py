@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 from pmccare_client import PMCCareClient, Config, NotRegisteredError
+import legacy_status
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 
@@ -105,8 +106,15 @@ def main() -> int:
                      "— filename is appended. Required to attach a photo.")
     ap.add_argument("--yes", action="store_true", help="don't ask before each submit")
     ap.add_argument("--status", action="store_true", help="list your complaints and exit")
+    ap.add_argument("--check-token", help="look up a complaint's status by token number"
+                     " (e.g. WA256398) — no login needed, exits after printing")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
+
+    if args.check_token:
+        print(json.dumps(legacy_status.check_status(args.check_token),
+                          ensure_ascii=False, indent=2))
+        return 0
 
     load_dotenv(Path(__file__).resolve().parent.parent / ".env")
     cfg = Config.from_env(debug=args.debug)

@@ -123,6 +123,33 @@ curl -s -X POST https://api.pmccare.in/user/v1/GrievanceCtrl/getGrievanceListByM
   -d '{"citMobileNumber":"+91XXXXXXXXXX"}'
 ```
 
+## `legacy_status.py` — a separate, older system
+
+`complaint.pmc.gov.in` is not `api.pmccare.in` — different backend, no
+account/login involved at all. It's a public token-number lookup: two calls,
+no auth headers.
+
+### `token_to_com_id(token_no)`
+Resolves a token number to PMC's internal `comId` by scraping it out of the
+returned HTML (`id="<comId>" name="btnTrack"` on the track button).
+
+```bash
+curl -s -X POST https://complaint.pmc.gov.in/rptTokenDetailsByTokenCitizen \
+  -d 'tokenNo=WA256398&comId=&pageMode=&reopenFlag=&reopenReasonId=&reopenRemark='
+```
+
+### `track_by_com_id(com_id)`
+Returns the full status and action history for a `comId`.
+
+```bash
+curl -s -X POST https://complaint.pmc.gov.in/fetchComplaintTrack \
+  -H 'X-Requested-With: XMLHttpRequest' -d 'comId=617929'
+```
+
+### `check_status(token_no)`
+Runs both calls in sequence and returns the status JSON directly from a
+token number — this is what `report.py --check-token` calls.
+
 ### Other things worth knowing
 - **Token lifetime: 180 days**, decoded from a real JWT's `iat`/`exp`. The
   identity payload itself is inside an opaque `encryptedData` blob only the
@@ -136,3 +163,17 @@ curl -s -X POST https://api.pmccare.in/user/v1/GrievanceCtrl/getGrievanceListByM
   endpoint names in the bundle's static strings (e.g. the old
   `GrievanceCtrl/addGrievance`) turned out to be stale/unused — the real one
   in current traffic is `addGrievanceDirectly`.
+
+## Known limitations in `report.py`
+
+- **`location` is raw coordinates, not a real address.** `submit_complaint()`
+  is called with `location=f"{lat:.6f},{lon:.6f}"` — the literal EXIF
+  coordinates as a string. The real app reverse-geocodes GPS into a street
+  address (via Google Places) before submitting; this script doesn't, so
+  every complaint you file shows a coordinate pair where PMC's UI normally
+  shows an address.
+- **One category/sub-category/ward/prabhag for the whole batch.**
+  `resolve_category_chain()` is called once before the photo loop, and that
+  single selection is reused for every photo in `--dir`. If a day's photos
+  span more than one ward, this version has no way to assign them
+  differently — they'll all get filed under whatever was picked first.
