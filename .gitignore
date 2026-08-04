@@ -10,6 +10,7 @@ captures/
 
 # conversation/session exports — may contain the same secrets
 *.txt
+!requirements.txt
 
 # investigation-only tooling — not part of the shipped plugin
 scripts/frida_ssl_bypass.js
