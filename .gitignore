@@ -1,0 +1,21 @@
+# your credentials / mobile number
+.env
+
+# cached JWT — valid ~180 days, don't ship it
+.token_cache.json
+
+# raw traffic captures and decompiled app source — both can contain real
+# tokens, mobile numbers, emails from whoever ran the capture
+captures/
+
+# conversation/session exports — may contain the same secrets
+*.txt
+
+# investigation-only tooling — not part of the shipped plugin
+scripts/frida_ssl_bypass.js
+scripts/mitm_intercept_submit.py
+
+# python
+__pycache__/
+*.pyc
+.venv/
