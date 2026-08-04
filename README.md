@@ -27,7 +27,7 @@ public documentation — PMC Care doesn't publish any.
 ```bash
 git clone https://github.com/ForceGT/pmc-care-cli
 cd pmc-care-cli
-pip install requests pillow cryptography
+pip install -r requirements.txt
 ```
 
 ### 2. Configure your mobile number
