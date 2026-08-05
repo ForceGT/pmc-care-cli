@@ -16,6 +16,9 @@ captures/
 scripts/frida_ssl_bypass.js
 scripts/mitm_intercept_submit.py
 
+# local-only agent instructions, not published
+CLAUDE.md
+
 # python
 __pycache__/
 *.pyc
